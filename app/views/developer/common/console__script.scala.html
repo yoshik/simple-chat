@@ -1,0 +1,24 @@
+@(Type:Html)(Data:Html)(Url:Html)
+<script>
+$(document).ready(function () {
+  $("#type").text(@Type);
+  $("#run").click(function () {
+    @Data
+    $.ajax({
+      url: @Url,
+      type: @Type,
+      cache: false,
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: function(message) {
+        console.dir(message)
+        $("#result").text('{"ok":"' + message.ok + '"}');
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown){
+        console.dir(XMLHttpRequest)
+        $("#result").text(XMLHttpRequest.responseText);
+      }
+    });
+  });
+});
+</script>

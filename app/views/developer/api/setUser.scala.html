@@ -1,0 +1,19 @@
+@()
+@developer.common.console("registration"){@routes.User.setUser()}{
+<div class="row">
+  <label for="username">username</label>
+  <input type="text" id="username" placeholder="username" />
+</div>
+<div class="row">
+  <label for="password">password</label>
+  <input type="text" id="password" placeholder="password" />
+</div>
+}{
+  @developer.common.console__script{'POST'}{
+    data={};
+    data.username=$('#username').val();
+    data.password=$('#password').val();
+  }{
+    '/registration'
+  }
+}

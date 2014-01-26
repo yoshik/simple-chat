@@ -1,0 +1,20 @@
+@(Name:String)(Url:Html)(Form:Html)(Script:Html)
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DeveloperConsole</title>
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")" />
+    <script src="@routes.Assets.at("javascripts/jquery-1.9.0.min.js")" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="console">
+      <div>@Name</div>
+      <div id="type"></div>
+      <div>@Url</div>
+      @Form
+      <div id="run">Submit</div>
+      <strong>Result</strong><span id="result"> [READY] </span>
+    </div>
+    @Script
+  </body>
+</html>

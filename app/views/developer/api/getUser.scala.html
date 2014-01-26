@@ -1,0 +1,16 @@
+@()
+@developer.common.console("getUser"){@routes.User.getUser("*username*")}{
+<div class="row">
+  <label for="username">username</label>
+  <input type="text" id="username" placeholder="username" />
+</div>
+}{
+  @developer.common.console__script{
+    'GET'
+  }{
+    data={}
+    username=$('#username').val();
+  }{
+    '/user/'+username
+  }
+}
