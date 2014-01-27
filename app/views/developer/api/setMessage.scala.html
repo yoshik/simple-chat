@@ -1,0 +1,24 @@
+@()
+@developer.common.console("message"){@routes.Message.setMessage()}{
+<div class="row">
+  <label for="username">username</label>
+  <input type="text" id="username" placeholder="username" />
+</div>
+<div class="row">
+  <label for="password">password</label>
+  <input type="text" id="password" placeholder="password" />
+</div>
+<div class="row">
+  <label for="message">message</label>
+  <input type="text" id="message" placeholder="message" />
+</div>
+}{
+  @developer.common.console__script{'POST'}{
+    data={};
+    data.username=$('#username').val();
+    data.password=$('#password').val();
+    data.message =$('#message' ).val();
+  }{
+    '/message'
+  }
+}

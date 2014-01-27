@@ -13,4 +13,8 @@ object Developer extends Controller {
     Ok(views.html.developer.api.setUser())
   }
 
+  def setMessage = Action {
+    Ok(views.html.developer.api.setMessage())
+  }
+
 }

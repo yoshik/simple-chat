@@ -8,6 +8,10 @@ object Riak {
     Play.current.configuration.getString("riak.root").getOrElse("http://127.0.0.1:8087/")
   }
 
+  def riakBucketUrl (bucket:String) :String = {
+    rootUrl+"buckets/"+bucket+"/keys"
+  }
+
   def riakBucketKeyUrl (bucket:String,key:String) :String = {
     rootUrl+"buckets/"+bucket+"/keys/"+key
   }
@@ -21,6 +25,11 @@ object Riak {
   def userUrl(name:String) = {
     val bucket = "user"
     riakBucketKeyUrl(bucket,name)
+  }
+
+  def messageUrl = {
+    val bucket = "message"
+    riakBucketUrl(bucket)
   }
 
 }
