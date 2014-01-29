@@ -14,6 +14,25 @@ import ExecutionContext.Implicits.global
 
 object Message extends Controller {
 
+  //GET
+
+  def getMessage = Action.async {
+    val postHeader = """{
+    "inputs":"message",
+    "query":[
+              {"map":{
+                "language":"javascript",
+                "source":"function(riakObject) {return [JSON.parse(riakObject.values[0].data)];}"
+                }}]}"""
+    WS.url(riakMapReduceUrl).post(Json.parse(postHeader)).map { response =>
+      response.status match {
+        case 200 => Ok{Json.obj("ok"->Json.parse(response.body))}
+        case 404 => BadRequest(Json.obj("error"->"not exist"))
+        case _ =>   BadRequest(Json.obj("error"->"unknown"))
+      }
+    }
+  }
+
   //POST
 
   def setMessage = Action.async { request =>

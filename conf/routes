@@ -17,4 +17,5 @@ GET     /developer/registration     controllers.Developer.setUser
 
 POST    /message                    controllers.Message.setMessage
 GET     /developer/message          controllers.Developer.setMessage
-
+GET     /timeline                   controllers.Message.getMessage
+GET     /developer/timeline         controllers.Developer.getMessage

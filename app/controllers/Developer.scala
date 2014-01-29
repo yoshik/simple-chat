@@ -17,4 +17,8 @@ object Developer extends Controller {
     Ok(views.html.developer.api.setMessage())
   }
 
+  def getMessage = Action {
+    Ok(views.html.developer.api.getMessage())
+  }
+
 }
