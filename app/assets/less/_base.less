@@ -1,0 +1,68 @@
+/*
+# centering
+```
+<div class="screen">
+  <span class="center-column"></span><span class="center-box">
+    <span class="logo">Simple Chat</span>
+  </span>
+</div>
+```
+
+# base
+```
+<div class="screen">
+  <div class="base-wrap">
+    <div class="base">
+      <span class="logo">Simple Chat</span>
+    </div>
+  </div>
+</div>
+```
+or
+```
+<div class="screen">
+  <div class="base-color">
+    <span class="logo">Simple Chat</span>
+  </div>
+</div>
+```
+*/
+
+@MIN_WIDTH:200px;
+@MAX_WIDTH:700px;
+
+body, html, .screen {
+  margin: 0;
+  height: 100%;
+}
+
+.center-column {
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.center-box {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.base-wrap{
+  max-width: @MAX_WIDTH;
+  min-width: @MIN_WIDTH;
+  margin: auto;
+  text-align: center;
+  height:100%;
+  padding:10px;
+}
+
+.base{
+  background-color: @BACKGROUND_COLOR;
+  height:100%;
+}
+
+.space-l{height:50px;}
+.space-m{height:30px;}
+.space-s{height:10px;}

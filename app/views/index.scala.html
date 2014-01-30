@@ -5,9 +5,64 @@
 <html>
   <head>
     <title>riak chat</title>
-    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("image/favicon.png")">
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("less/main.css")">
+    <style>
+
+.logo{
+  font-size: 72pt;
+  font-family: 'Arizonia', cursive;
+  text-align: center;
+  color:rgb(210,200,195);
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.4);
+}
+
+.logo-sub{
+  font-size: 24pt;
+  font-family: 'Arizonia', cursive;
+  text-align: center;
+  color:rgb(210,200,195);
+  text-shadow: 1px 2px 2px rgba(0,0,0,0.4);
+}
+
+    </style>
   </head>
   <body>
-    Hello,Riak Chat!
+    <div class="screen">
+      <span class="center-column"></span><span class="center-box">
+        <div class="logo">Simple Chat</div>
+        <div class="logo-sub">PlayFramework and Riak</div>
+        <div class="space-l"></div>
+        <div class="button-large-accent">Sign up</div>
+        <div class="space-s"></div>
+        <div class="button-large-normal">Sign in</div>
+      </span>
+    </div>
+
+    <div class="screen">
+      <div class="base-wrap">
+        <div class="base">
+          <div class="space-l"></div>
+          <div class="form-title">
+            Registration
+          </div>
+          <div class="space-m"></div>
+          <div class="form">
+            <label for="username">username</label>
+            <input type="text" id="username" placeholder="username" />
+          </div>
+          <div class="space-s"></div>
+          <div class="form">
+            <label for="password">password</label>
+            <input type="text" id="password" placeholder="password" />
+          </div>
+          <div class="space-s"></div>
+          <div class="form-button">
+            <div class="button-normal">Cancel</div><div class="button-accent">Submit</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </body>
 </html>
