@@ -5,7 +5,7 @@ import play.api._
 object Riak {
 
   def rootUrl:String = {
-    Play.current.configuration.getString("riak.root").getOrElse("http://127.0.0.1:8087/")
+    Play.current.configuration.getString("riak.root").getOrElse("http://localhost:8098/")
   }
 
   def riakBucketUrl (bucket:String) :String = {
