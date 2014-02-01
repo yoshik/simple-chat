@@ -12,7 +12,7 @@ $(document).ready(function () {
       data: JSON.stringify(data),
       success: function(message) {
         console.dir(message)
-        $("#result").text('{"ok":"' + message.ok + '"}');
+        $("#result").text(JSON.stringify(message));
       },
       error: function(XMLHttpRequest, textStatus, errorThrown){
         console.dir(XMLHttpRequest)

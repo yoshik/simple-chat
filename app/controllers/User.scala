@@ -18,7 +18,7 @@ object User extends Controller {
   def getUser(name:String) = Action.async {
     WS.url(userUrl(name)).get().map { response =>
       response.status match {
-        case 200 => Ok{response.body}
+        case 200 => Ok{Json.obj("ok"->Json.parse(response.body))}
         case 404 => BadRequest(Json.obj("error"->"not exist"))
         case _ =>   BadRequest(Json.obj("error"->"unknown"))
       }
