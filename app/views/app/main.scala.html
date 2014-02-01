@@ -1,0 +1,21 @@
+@()
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>riak chat</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("less/main.css")">
+    <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("image/favicon.png")">
+  </head>
+  <body>
+    <div id="view"></div>
+    <script id="index" type="text/template">@view.index()</script>
+    <script id="signup" type="text/template">@view.signup()</script>
+
+    <script src="@routes.Assets.at("javascript/zepto.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascript/hogan.min.js")" type="text/javascript"></script>
+    <script src="@routes.Assets.at("javascript/viewcontroller.min.js")" type="text/javascript"></script>
+
+  </body>
+</html>
