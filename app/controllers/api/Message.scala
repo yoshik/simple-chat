@@ -47,7 +47,8 @@ object Message extends Controller {
           future{BadRequest(Json.obj("error"->"not enough json"))}
         }
         else if(Auth.auth(name,pass)){
-          val data = Json.obj("name" -> name,"pass" -> pass,"mes" -> mes)
+          val timestamp: Long = System.currentTimeMillis
+          val data = Json.obj("name" -> name,"pass" -> pass,"mes" -> mes,"date"->timestamp)
           WS.url(messageUrl).post(data).map { response =>
             response.status match {
               case 201 => Ok{Json.obj("ok"->"success")}
