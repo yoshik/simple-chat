@@ -10,12 +10,13 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # API
 
-GET     /user/:name                 controllers.User.getUser(name)
-GET     /developer/getUser          controllers.Developer.getUser
-POST    /registration               controllers.User.setUser
-GET     /developer/registration     controllers.Developer.setUser
+GET     /user/:name                 controllers.User.user(name)
+GET     /timeline                   controllers.Message.timeline
+POST    /registration               controllers.User.registration
+POST    /post                       controllers.Message.post
 
-POST    /message                    controllers.Message.setMessage
-GET     /developer/message          controllers.Developer.setMessage
-GET     /timeline                   controllers.Message.getMessage
-GET     /developer/timeline         controllers.Developer.getMessage
+GET     /developer                  controllers.Developer.index
+GET     /developer/user             controllers.Developer.user
+GET     /developer/timeline         controllers.Developer.timeline
+GET     /developer/registration     controllers.Developer.registration
+GET     /developer/post             controllers.Developer.post

@@ -15,7 +15,7 @@ object User extends Controller {
 
   //GET
 
-  def getUser(name:String) = Action.async {
+  def user(name:String) = Action.async {
     WS.url(userUrl(name)).get().map { response =>
       response.status match {
         case 200 => Ok{Json.obj("ok"->Json.parse(response.body))}
@@ -27,7 +27,7 @@ object User extends Controller {
 
   //POST
 
-  def setUser = Action.async { request =>
+  def registration = Action.async { request =>
     (
       for {
         json <- request.body.asJson

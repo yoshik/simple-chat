@@ -1,5 +1,5 @@
 @()
-@developer.common.console("registration"){@routes.User.setUser()}{
+@developer.common.console("post"){@routes.Message.post()}{
 <div class="row">
   <label for="username">username</label>
   <input type="text" id="username" placeholder="username" />
@@ -8,12 +8,17 @@
   <label for="password">password</label>
   <input type="text" id="password" placeholder="password" />
 </div>
+<div class="row">
+  <label for="message">message</label>
+  <input type="text" id="message" placeholder="message" />
+</div>
 }{
-  @developer.common.console__script{'POST'}{
+  @developer.common.console_script{'POST'}{
     data={};
     data.username=$('#username').val();
     data.password=$('#password').val();
+    data.message =$('#message' ).val();
   }{
-    '/registration'
+    '/post'
   }
 }

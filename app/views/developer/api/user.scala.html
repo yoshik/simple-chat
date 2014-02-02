@@ -1,11 +1,11 @@
 @()
-@developer.common.console("getUser"){@routes.User.getUser("*username*")}{
+@developer.common.console("user"){@routes.User.user("*username*")}{
 <div class="row">
   <label for="username">username</label>
   <input type="text" id="username" placeholder="username" />
 </div>
 }{
-  @developer.common.console__script{
+  @developer.common.console_script{
     'GET'
   }{
     data={}

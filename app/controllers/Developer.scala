@@ -5,20 +5,24 @@ import play.api.mvc._
 
 object Developer extends Controller {
 
-  def getUser = Action {
-    Ok(views.html.developer.api.getUser())
+  def index = Action {
+    Ok(views.html.app.developer())
   }
 
-  def setUser = Action {
-    Ok(views.html.developer.api.setUser())
+  def user = Action {
+    Ok(views.html.developer.api.user())
   }
 
-  def setMessage = Action {
-    Ok(views.html.developer.api.setMessage())
+  def registration = Action {
+    Ok(views.html.developer.api.registration())
   }
 
-  def getMessage = Action {
-    Ok(views.html.developer.api.getMessage())
+  def post = Action {
+    Ok(views.html.developer.api.post())
+  }
+
+  def timeline = Action {
+    Ok(views.html.developer.api.timeline())
   }
 
 }

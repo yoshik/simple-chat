@@ -16,7 +16,7 @@ object Message extends Controller {
 
   //GET
 
-  def getMessage = Action.async {
+  def timeline = Action.async {
     val postHeader = """{
     "inputs":"message",
     "query":[
@@ -35,7 +35,7 @@ object Message extends Controller {
 
   //POST
 
-  def setMessage = Action.async { request =>
+  def post = Action.async { request =>
     (
       for {
         json <- request.body.asJson
