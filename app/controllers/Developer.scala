@@ -25,4 +25,7 @@ object Developer extends Controller {
     Ok(views.html.developer.api.timeline())
   }
 
+  def signin = Action {
+    Ok(views.html.developer.api.signin())
+  }
 }

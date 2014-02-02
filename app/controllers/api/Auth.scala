@@ -26,4 +26,26 @@ object Auth extends Controller {
       case _ => false
     }
   }
+
+  def signin = Action { request=>
+    (
+      for {
+        json <- request.body.asJson
+        name <- (json \ "username").asOpt[String]
+        pass <- (json \ "password").asOpt[String]
+      } yield {
+        if(name == None || pass == None){
+          BadRequest(Json.obj("error"->"not enough json"))
+        }
+        else if(Auth.auth(name,pass)){
+          Ok{Json.obj("ok"->"success")}
+        }else{
+          BadRequest(Json.obj("error"->"can't auth"))
+        }
+      }
+    ).getOrElse {
+      BadRequest(Json.obj("error"->"wrong json"))
+    }
+  }
+
 }

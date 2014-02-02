@@ -14,9 +14,11 @@ GET     /user/:name                 controllers.User.user(name)
 GET     /timeline                   controllers.Message.timeline
 POST    /registration               controllers.User.registration
 POST    /post                       controllers.Message.post
+POST    /signin                     controllers.Auth.signin
 
 GET     /developer                  controllers.Developer.index
 GET     /developer/user             controllers.Developer.user
 GET     /developer/timeline         controllers.Developer.timeline
 GET     /developer/registration     controllers.Developer.registration
 GET     /developer/post             controllers.Developer.post
+GET     /developer/signin           controllers.Developer.signin

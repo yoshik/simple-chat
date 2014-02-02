@@ -7,6 +7,7 @@ import play.api.mvc._
 import play.api.libs.ws._
 import play.api.libs.json._
 
+import scala.util._
 import scala.concurrent._
 import scala.concurrent.duration._
 import ExecutionContext.Implicits.global
@@ -18,7 +19,11 @@ object User extends Controller {
   def user(name:String) = Action.async {
     WS.url(userUrl(name)).get().map { response =>
       response.status match {
-        case 200 => Ok{Json.obj("ok"->Json.parse(response.body))}
+        case 200 => {
+          val json = Json.parse(response.body)
+          val res = Json.obj("name"-> json \ "name")
+          Ok{Json.obj("ok"->res)}
+        }
         case 404 => BadRequest(Json.obj("error"->"not exist"))
         case _ =>   BadRequest(Json.obj("error"->"unknown"))
       }
@@ -43,26 +48,24 @@ object User extends Controller {
             BadRequest(Json.obj("error"->"already exist"))
           }else{
             val data = Json.obj("name" -> name,"pass" -> pass)
-            val post = WS.url(userUrl(name)).post(data)
-            try {
-              Await.result(post,5000 millis)
-            } catch {
-              case e: TimeoutException => "timeout " + e
-              case _ => "unknown"
-            } finally {
-              //nothing
-            }
-            val result = {
-              var i = BadRequest(Json.obj("error"->"busy"))
-              post onSuccess {
-                case _ => i = Ok(Json.obj("ok"->"success"))
+            val post = WS.url(userUrl(name)).post(data).map { response =>
+              response.status match {
+                case 201 => true
+                case 204 => true
+                case _ => false
               }
-              post onFailure {
-                case _ => i = BadRequest(Json.obj("error"->"busy"))
-              }
-              i
             }
-            result
+            Await.result(post,5000 millis)
+            post.value match{
+              case Some(s:Try[Boolean]) => {
+                if(s.getOrElse(false)){
+                  Ok(Json.obj("ok"->"success"))
+                }else{
+                  BadRequest(Json.obj("error"->"busy"))
+                }
+              }
+              case _ => BadRequest(Json.obj("error"->"busy"))
+            }
           }
         }
       }
