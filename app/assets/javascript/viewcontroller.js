@@ -70,6 +70,28 @@ Zepto(function($){
     $("#signin-cancel").on("click",function(){view.index();});
   };
 
-  view.index();
+  view.timeline=function(){
+    if(!template.timeline){
+      template.timeline = Hogan.compile($('#timeline').text());
+    }
+    $('#view').html(template.timeline.render());
+    data={};
+    $.ajax({
+      url: "/timeline",
+      type: "GET",
+      cache: false,
+      contentType: "application/json; charset=UTF-8",
+      data: JSON.stringify(data),
+      success: function(message) {
+        // $("#timeline-list").text(message.ok);
+      },
+      error: function(XMLHttpRequest, textStatus, errorThrown){
+        $("#signin-result").text(JSON.parse(XMLHttpRequest.responseText).error);
+      }
+    });
+
+  };
+
+  view.timeline();
 
 });
