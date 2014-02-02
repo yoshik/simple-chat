@@ -1,0 +1,70 @@
+/*
+#cell
+
+```
+<div class="cell">
+  <div class="cell-title">Yoshiki says</div>
+  <div class="cell-body">test message</div>
+</div>
+```
+
+*/
+
+@CELL_BORDER_COLOR:rgba(0,0,0,0.05);
+
+.navbar{
+  position: absolute;
+  background-color: fade(@ACCENT_COLOR,70%);
+  width:100%;
+  height:35px;
+  text-align: center;
+  padding-top: 2px;
+}
+.navbar *{
+  display:inline-block;
+}
+
+.navbar input{
+  box-sizing:border-box;
+  border:0;
+  height:30px;
+  width:250px;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 4px;
+  padding-left: 8px;
+}
+.navbar-column{
+  height: 35px;
+}
+
+.form input::-webkit-input-placeholder {
+  text-shadow:0px 0px 0px #fff;
+}
+.form input:-moz-placeholder {
+  text-shadow:0px 0px 0px #fff;
+}
+
+.list{
+  border-top:solid 3px @CELL_BORDER_COLOR;
+  border-bottom:solid 3px @CELL_BORDER_COLOR;
+  height: 100%;
+  overflow: scroll;
+}
+.cell{
+  padding: 10px;
+  border-top:solid 3px @CELL_BORDER_COLOR;
+  border-bottom:solid 3px @CELL_BORDER_COLOR;
+  border-left:solid 6px @CELL_BORDER_COLOR;
+  border-right:solid 6px @CELL_BORDER_COLOR;
+}
+
+.cell-title{
+  .font-lato;
+  font-size: 18pt;
+  text-align: left;
+}
+
+.cell-body{
+  font-size: 18pt;
+  text-align: right;
+}

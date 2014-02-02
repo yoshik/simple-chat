@@ -30,9 +30,9 @@ Zepto(function($){
         contentType: "application/json; charset=UTF-8",
         data: JSON.stringify(data),
         success: function(message) {
-          $("#signup-result").text(message.ok);
           user.name=data.username;
           user.pass=data.password;
+          view.timeline();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
           $("#signup-result").text(JSON.parse(XMLHttpRequest.responseText).error);
@@ -52,7 +52,7 @@ Zepto(function($){
       data.username=$('#signin-username').val();
       data.password=$('#signin-password').val();
       $.ajax({
-        url: "/registration",
+        url: "/signin",
         type: "POST",
         cache: false,
         contentType: "application/json; charset=UTF-8",
@@ -61,6 +61,7 @@ Zepto(function($){
           $("#signin-result").text(message.ok);
           user.name=data.username;
           user.pass=data.password;
+          view.timeline();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
           $("#signin-result").text(JSON.parse(XMLHttpRequest.responseText).error);
@@ -74,6 +75,10 @@ Zepto(function($){
     if(!template.timeline){
       template.timeline = Hogan.compile($('#timeline').text());
     }
+    if(!template.cell){
+      template.cell = Hogan.compile($('#cell').text());
+    }
+
     $('#view').html(template.timeline.render());
     data={};
     $.ajax({
@@ -83,15 +88,37 @@ Zepto(function($){
       contentType: "application/json; charset=UTF-8",
       data: JSON.stringify(data),
       success: function(message) {
-        // $("#timeline-list").text(message.ok);
+        $('#timeline-list').html(template.cell.render(message));
       },
       error: function(XMLHttpRequest, textStatus, errorThrown){
         $("#signin-result").text(JSON.parse(XMLHttpRequest.responseText).error);
       }
     });
 
+    $("#navbar-post").on("click",function(){
+      data={};
+      data.message=$('#navbar-input').val();
+      data.username=user.name;
+      data.password=user.pass;
+
+      $.ajax({
+        url: "/post",
+        type: "POST",
+        cache: false,
+        contentType: "application/json; charset=UTF-8",
+        data: JSON.stringify(data),
+        success: function(message) {
+          $("#signin-result").text(message.ok);
+          view.timeline();
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+          $("#signin-result").text(JSON.parse(XMLHttpRequest.responseText).error);
+        }
+      });
+    });
+
   };
 
-  view.timeline();
+  view.index();
 
 });
