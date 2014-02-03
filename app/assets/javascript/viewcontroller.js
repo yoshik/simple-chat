@@ -51,6 +51,8 @@ Zepto(function($){
         success: function(message) {
           user.name=data.username;
           user.pass=data.password;
+          Lockr.set('username', user.name);
+          Lockr.set('password', user.pass);
           view.timeline();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -80,6 +82,8 @@ Zepto(function($){
           $("#signin-result").text(message.ok);
           user.name=data.username;
           user.pass=data.password;
+          Lockr.set('username', user.name);
+          Lockr.set('password', user.pass);
           view.timeline();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
@@ -148,6 +152,10 @@ Zepto(function($){
       }
     });
 
+    $("#navbar-logout").on("click",function(){
+      Lockr.flush();
+      view.index();
+    });
     $("#navbar-post").on("click",function(){
       data={};
       data.message=$('#navbar-input').val();
@@ -172,6 +180,25 @@ Zepto(function($){
 
   };
 
-  view.index();
+
+  data={};
+  data.username=Lockr.get('username');
+  data.password=Lockr.get('password');
+  $.ajax({
+    url: "/signin",
+    type: "POST",
+    cache: false,
+    contentType: "application/json; charset=UTF-8",
+    data: JSON.stringify(data),
+    success: function(message) {
+      user.name=data.username;
+      user.pass=data.password;
+      view.timeline();
+    },
+    error: function(XMLHttpRequest, textStatus, errorThrown){
+      view.index();
+    }
+  });
+
 
 });
