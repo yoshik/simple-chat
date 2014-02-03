@@ -112,7 +112,7 @@ Zepto(function($){
         $('#timeline-list').html(template.cell.render(message));
       },
       error: function(XMLHttpRequest, textStatus, errorThrown){
-        $("#signin-result").text(JSON.parse(XMLHttpRequest.responseText).error);
+        $("#timeline-result").text(JSON.parse(XMLHttpRequest.responseText).error);
       }
     });
 
@@ -129,11 +129,11 @@ Zepto(function($){
         contentType: "application/json; charset=UTF-8",
         data: JSON.stringify(data),
         success: function(message) {
-          $("#signin-result").text(message.ok);
+          $("#timeline-result").text(message.ok);
           view.timeline();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown){
-          $("#signin-result").text(JSON.parse(XMLHttpRequest.responseText).error);
+          $("#timeline-result").text(JSON.parse(XMLHttpRequest.responseText).error);
         }
       });
     });

@@ -18,17 +18,27 @@ object Message extends Controller {
 
   def timeline = Action.async {
     val postHeader = """{
-    "inputs":"message",
-    "query":[
-              {"map":{
-                "language":"javascript",
-                "source":"function(riakObject) {return [JSON.parse(riakObject.values[0].data)];}"
-                }}]}"""
+      "inputs": "message",
+      "query": [
+        {
+          "map": {
+            "language": "javascript",
+            "source": "function(riak){return [JSON.parse(riak.values[0].data)];}"
+          }
+        },
+        {
+          "reduce": {
+            "language": "javascript",
+            "source": "function(riak) {var result = new Array();for(var i in riak){result.push(riak[i]);}result.sort(function(a,b){if(a.date < b.date ) return 1;if( a.date > b.date ) return -1;return 0;});return result;}"
+          }
+        }
+      ]
+    }"""
     WS.url(riakMapReduceUrl).post(Json.parse(postHeader)).map { response =>
       response.status match {
         case 200 => Ok{Json.obj("ok"->Json.parse(response.body))}
         case 404 => BadRequest(Json.obj("error"->"not exist"))
-        case _ =>   BadRequest(Json.obj("error"->"unknown"))
+        case _ =>   BadRequest(Json.obj("error"->"unknown error"))
       }
     }
   }

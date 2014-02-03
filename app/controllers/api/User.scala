@@ -25,7 +25,7 @@ object User extends Controller {
           Ok{Json.obj("ok"->res)}
         }
         case 404 => BadRequest(Json.obj("error"->"not exist"))
-        case _ =>   BadRequest(Json.obj("error"->"unknown"))
+        case _ =>   BadRequest(Json.obj("error"->"unknown error"))
       }
     }
   }
