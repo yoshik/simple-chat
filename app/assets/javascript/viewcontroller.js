@@ -22,6 +22,7 @@ Zepto(function($){
   var template={};
   var view={};
   var timer;
+  var messages=[];
 
   view.index=function(){
     if(!template.index){
@@ -101,15 +102,46 @@ Zepto(function($){
     }
 
     $('#view').html(template.timeline.render());
-    data={};
+
+    var scroll_callback = function(){
+      $.ajax({
+        url: "/timeline?older="+messages[messages.length-1].date,
+        type: "GET",
+        cache: false,
+        contentType: "application/json; charset=UTF-8",
+        success: function(message) {
+          messages = messages.concat(message.ok);
+          $('#timeline-list').html(template.cell.render({messages:messages}));
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown){
+          $("#timeline-result").text(JSON.parse(XMLHttpRequest.responseText).error);
+        }
+      });
+    };
+
+    var scroll_timer;
+    var $s = $('#timeline-list');
+    var s = $s[0];
+    s.addEventListener("scroll", function(){
+    clearTimeout(scroll_timer);
+    scroll_timer = setTimeout(function(){
+      if(scroll_callback!=null){
+        var position = $('#timeline-list').scrollTop() + $('#timeline-list').height();
+        if( s.scrollHeight - position < 100 ){
+          scroll_callback();
+        }
+      }
+    }, 500);
+    });
+
     $.ajax({
       url: "/timeline",
       type: "GET",
       cache: false,
       contentType: "application/json; charset=UTF-8",
-      data: JSON.stringify(data),
       success: function(message) {
-        $('#timeline-list').html(template.cell.render(message));
+        messages = message.ok;
+        $('#timeline-list').html(template.cell.render({messages:messages}));
       },
       error: function(XMLHttpRequest, textStatus, errorThrown){
         $("#timeline-result").text(JSON.parse(XMLHttpRequest.responseText).error);
