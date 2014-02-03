@@ -1,10 +1,15 @@
 @()
-@developer.common.console("timeline"){@routes.Message.timeline()}{
+@developer.common.console("timeline"){@routes.Message.timeline(None)?older=*unixtime*}{
+<div class="row">
+  <label for="time">older(optional)</label>
+  <input type="text" id="time" placeholder="unixtime" />
+</div>
 
 }{
   @developer.common.console_script{'GET'}{
     data={}
+    var time = $('#time').val();
   }{
-    '/timeline'
+    '/timeline?older='+time
   }
 }

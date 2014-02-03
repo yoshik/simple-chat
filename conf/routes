@@ -11,7 +11,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 # API
 
 GET     /user/:name                 controllers.User.user(name)
-GET     /timeline                   controllers.Message.timeline
+GET     /timeline                   controllers.Message.timeline(older:Option[String])
 POST    /registration               controllers.User.registration
 POST    /post                       controllers.Message.post
 POST    /signin                     controllers.Auth.signin

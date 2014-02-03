@@ -16,24 +16,34 @@ object Message extends Controller {
 
   //GET
 
-  def timeline = Action.async {
-    val postHeader = """{
-      "inputs": "message",
-      "query": [
-        {
-          "map": {
-            "language": "javascript",
-            "source": "function(riak){return [JSON.parse(riak.values[0].data)];}"
-          }
-        },
-        {
-          "reduce": {
-            "language": "javascript",
-            "source": "function(riak) {var result = new Array();for(var i in riak){result.push(riak[i]);}result.sort(function(a,b){if(a.date < b.date ) return 1;if( a.date > b.date ) return -1;return 0;});return result;}"
-          }
-        }
-      ]
-    }"""
+  def mapreduceHeader(countLimit:Integer,olderThan:Long,olderLimit:Integer):String = {
+"""{
+  "inputs": "message",
+  "query": [
+    {
+      "map": {
+        "language": "javascript",
+        "source": "function(riak){var result = JSON.parse(riak.values[0].data);if(result.date<"""+olderThan.toString+""" && result.date>"""+(olderThan-olderLimit).toString+"""){return [result];}else{return [];}}"
+      }
+    },
+    {
+      "reduce": {
+        "language": "javascript",
+        "source": "function(riak) {var result = new Array();for(var i in riak){if(riak[i])result.push(riak[i]);}result.sort(function(a,b){if(a.date < b.date ) return 1;if( a.date > b.date ) return -1;return 0;});result.length="""+countLimit.toString+"""<result.length?"""+countLimit.toString+""":result.length;return result;}"
+      }
+    }
+  ]
+}"""
+  }
+
+  def timeline(olderThan:Option[String]) = Action.async {
+    val older:Long = try{
+      olderThan.get.toLong
+    }catch{
+      case _ => { System.currentTimeMillis}
+    }
+
+    val postHeader = mapreduceHeader(10,older,24*60*60*1000)
     WS.url(riakMapReduceUrl).post(Json.parse(postHeader)).map { response =>
       response.status match {
         case 200 => Ok{Json.obj("ok"->Json.parse(response.body))}
