@@ -3,17 +3,41 @@
 <html>
   <head>
     <title>DeveloperConsole</title>
+    <link rel="stylesheet" media="screen" href="@routes.Assets.at("less/main.css")">
     <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")" />
     <script src="@routes.Assets.at("javascript/zepto.min.js")" type="text/javascript"></script><!--thanks Thomas Fuchs-->
   </head>
   <body>
-    <div class="console">
-      <div>@Name</div>
-      <div id="type"></div>
-      <div>@Url</div>
-      @Form
-      <div id="run">Submit</div>
-      <strong>Result</strong><span id="result"> [READY] </span>
+    <div class="screen">
+      <div class="navbar">
+        <a href="/developer" class="logo-sub dev-nav">Simple Chat</a>
+      </div>
+      <div class="base-wrap">
+        <div class="base console">
+          <div class="navbar-column"></div>
+          <div>
+            <span class="console-left">API NAME:</span>
+            <span class="console-right">@Name</span>
+          </div>
+          <div>
+            <span class="console-left">HTTP TYPE:</span>
+            <span class="console-right" id="type"></span>
+          </div>
+          <div>
+            <span class="console-left">URL:</span>
+            <span class="console-right">@Url</span>
+          </div>
+          <div class="space-l"></div>
+          <div class="console-form">
+            @Form
+          </div>
+          <div class="space-s"></div>
+          <div class="button-accent console-submit" id="run">Submit</div>
+          <div class="space-m"></div>
+          <div class="console-result"><strong>Result</strong><span id="result"> [READY] </span>
+          <div class="space-l"></div>
+        </div>
+      </div>
     </div>
     @Script
   </body>
