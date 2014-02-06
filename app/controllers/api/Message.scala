@@ -40,7 +40,7 @@ object Message extends Controller {
     val older:Long = try{
       olderThan.get.toLong
     }catch{
-      case _ => { System.currentTimeMillis}
+      case _ : Throwable => { System.currentTimeMillis}
     }
 
     val postHeader = mapreduceHeader(10,older,24*60*60*1000)
