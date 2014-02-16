@@ -40,9 +40,9 @@ object User extends Controller {
         pass <- (json \ "password").asOpt[String]
       } yield {
         WS.url(userUrl(name)).get().map { response =>
-          if(name == None){
+          if(name == ""){
             BadRequest(Json.obj("error"->"no username"))
-          }else if(pass == None){
+          }else if(pass == ""){
             BadRequest(Json.obj("error"->"no password"))
           }else if(response.status != 404){
             BadRequest(Json.obj("error"->"already exist"))

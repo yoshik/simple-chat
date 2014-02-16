@@ -63,7 +63,7 @@ object Message extends Controller {
         pass <- (json \ "password").asOpt[String]
         mes  <- (json \ "message" ).asOpt[String]
       } yield {
-        if(name == None || pass == None || mes == None){
+        if(name == "" || pass == "" || mes == ""){
           future{BadRequest(Json.obj("error"->"not enough json"))}
         }
         else if(Auth.auth(name,pass)){
